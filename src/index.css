@@ -625,6 +625,7 @@ body {
   align-items: center;
   justify-content: center;
   padding-inline: calc(var(--spacing, 0.25rem) * 1);
+  cursor: pointer;
 }
 .pagination-count {
   padding-inline: calc(var(--spacing, 0.25rem) * 2);
