@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import type {
+  PieDatum,
+  BarDatum,
+  ChartSectionProps,
+} from "../interfaces/chart";
 
 function getVar(name: string, fallback: string) {
   if (typeof window !== "undefined") {
@@ -26,30 +31,19 @@ const commonChartStyle = () => {
   };
 };
 
-const pieData = [
-  { name: "차트 이름", y: 30, color: "#FF7043" },
-  { name: "차트 이름", y: 20, color: "#FFD54F" },
-  { name: "차트 이름", y: 15, color: "#EF5350" },
-  { name: "차트 이름", y: 10, color: "#42A5F5" },
-  { name: "차트 이름", y: 10, color: "#26A69A" },
-  { name: "차트 이름", y: 15, color: "#7E57C2" },
-];
-
-const pieOptions = () => {
+const PieChartWithCustomLegend: React.FC<{ data: PieDatum[] }> = ({ data }) => {
   const c = getChartColors();
-  return {
+  const options = {
     chart: {
       type: "pie",
       backgroundColor: "transparent",
       style: commonChartStyle(),
     },
-    title: {
-      text: "",
-    },
+    title: { text: "" },
     credits: { enabled: false },
     legend: {
       enabled: true,
-      align: "center",
+      align: "left",
       verticalAlign: "bottom",
       layout: "horizontal",
       itemStyle: { color: c.text, fontSize: 15 },
@@ -61,12 +55,15 @@ const pieOptions = () => {
       margin: 8,
       padding: 0,
       itemDistance: 24,
-      maxHeight: 48,
+      maxHeight: 100,
+      width: 400,
       itemWidth: 120,
+      floating: false,
     },
     plotOptions: {
       pie: {
         dataLabels: {
+          enabled: false,
           style: { color: c.text, textOutline: "none" },
         },
       },
@@ -74,37 +71,49 @@ const pieOptions = () => {
     series: [
       {
         type: "pie",
-        data: pieData,
+        data,
         showInLegend: true,
       },
     ],
   };
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
+    </div>
+  );
 };
 
-const barOptions1 = () => {
+const BarChart1: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
+  data,
+  categories,
+}) => {
   const c = getChartColors();
-  const barColors = [
-    "#FFAB91",
-    "#FFD54F",
-    "#FF8A65",
-    "#FFD54F",
-    "#FFAB91",
-    "#42A5F5",
-    "#26A69A",
-    "#7E57C2",
-  ];
-  return {
+  const options = {
     chart: {
       type: "bar",
       backgroundColor: "transparent",
       style: commonChartStyle(),
     },
-    title: {
-      text: "",
-    },
+    title: { text: "" },
     legend: {
       enabled: true,
-      align: "center",
+      align: "right",
       verticalAlign: "bottom",
       layout: "horizontal",
       itemStyle: { color: c.text, fontSize: 15 },
@@ -116,19 +125,13 @@ const barOptions1 = () => {
       margin: 8,
       padding: 0,
       itemDistance: 24,
-      maxHeight: 48,
+      maxHeight: 100,
+      width: 500,
+      itemWidth: 120,
+      floating: false,
     },
     xAxis: {
-      categories: [
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-        "2018",
-        "2019",
-      ],
+      categories,
       title: { text: undefined },
       labels: { style: { color: c.text, fontSize: 15 } },
       gridLineWidth: 0,
@@ -161,56 +164,7 @@ const barOptions1 = () => {
         stacking: "normal",
       },
     },
-    series: [
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [2, 3, 5, 8, 13, 16, 6, 2],
-        color: barColors[0],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [1, 2, 3, 4, 5, 6, 7, 8],
-        color: barColors[1],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [2, 1, 2, 3, 1, 2, 3, 1],
-        color: barColors[2],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [3, 2, 1, 2, 3, 1, 2, 3],
-        color: barColors[3],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [1, 3, 2, 1, 2, 3, 1, 2],
-        color: barColors[4],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [2, 2, 2, 2, 2, 2, 2, 2],
-        color: barColors[5],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [0, 1, 2, 3, 4, 5, 6, 7],
-        color: barColors[6],
-      },
-      {
-        type: "bar",
-        name: "차트 이름",
-        data: [1, 0, 1, 0, 1, 0, 1, 0],
-        color: barColors[7],
-      },
-    ],
+    series: data,
     credits: { enabled: false },
     tooltip: {
       style: { color: c.text, fontSize: 14 },
@@ -218,30 +172,24 @@ const barOptions1 = () => {
       borderColor: c.text,
     },
   };
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
-const barOptions2 = () => {
+const BarChart2: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
+  data,
+  categories,
+}) => {
   const c = getChartColors();
-  const colColors = [
-    "#FF7043", // orange
-    "#FFD54F", // yellow
-    "#EF5350", // red
-    "#42A5F5", // blue
-    "#26A69A", // green
-    "#7E57C2", // purple
-  ];
-  return {
+  const options = {
     chart: {
       type: "column",
       backgroundColor: "transparent",
       style: commonChartStyle(),
     },
-    title: {
-      text: "",
-    },
+    title: { text: "" },
     legend: {
       enabled: true,
-      align: "center",
+      align: "right",
       verticalAlign: "bottom",
       layout: "horizontal",
       itemStyle: { color: c.text, fontSize: 15 },
@@ -253,22 +201,13 @@ const barOptions2 = () => {
       margin: 8,
       padding: 0,
       itemDistance: 24,
-      maxHeight: 48,
+      maxHeight: 100,
+      width: 400,
       itemWidth: 120,
+      floating: false,
     },
     xAxis: {
-      categories: [
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-        "2018",
-        "2019",
-        "2022",
-        "2023",
-      ],
+      categories,
       title: { text: undefined },
       labels: { style: { color: c.text, fontSize: 15 } },
       gridLineWidth: 0,
@@ -301,44 +240,7 @@ const barOptions2 = () => {
         stacking: "normal",
       },
     },
-    series: [
-      {
-        type: "column",
-        name: "차트 이름",
-        data: [10, 0, 0, 0, 0, 0, 0, 0, 6, 15],
-        color: colColors[1],
-      },
-      {
-        type: "column",
-        name: "차트 이름",
-        data: [7, 0, 0, 0, 0, 0, 0, 0, 4, 5],
-        color: colColors[2],
-      },
-      {
-        type: "column",
-        name: "차트 이름",
-        data: [0, 1, 3, 2, 0, 0, 0, 0, 0, 0],
-        color: colColors[3],
-      },
-      {
-        type: "column",
-        name: "차트 이름",
-        data: [0, 0, 2, 1, 0, 0, 0, 0, 0, 0],
-        color: colColors[4],
-      },
-      {
-        type: "column",
-        name: "차트 이름",
-        data: [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-        color: colColors[5],
-      },
-      {
-        type: "column",
-        name: "차트 이름",
-        data: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        color: colColors[0],
-      },
-    ],
+    series: data,
     credits: { enabled: false },
     tooltip: {
       style: { color: c.text, fontSize: 14 },
@@ -346,171 +248,169 @@ const barOptions2 = () => {
       borderColor: c.text,
     },
   };
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
-function PieChartWithCustomLegend() {
-  return (
+function getGridColumn(
+  spanLarge: number,
+  spanMedium: number,
+  spanSmall: number
+) {
+  const width = window.innerWidth;
+  if (width <= 900) return "1 / -1";
+  if (width <= 1199) return `span ${spanSmall}`;
+  if (width <= 1399) return `span ${spanMedium}`;
+  return `span ${spanLarge}`;
+}
+
+export const ChartCards: React.FC<ChartSectionProps> = ({
+  pieData,
+  barData1,
+  barCategories1,
+  barData2,
+  barCategories2,
+}) => {
+  const [pieCol, setPieCol] = useState(() => getGridColumn(2, 2, 2));
+  const [barCol, setBarCol] = useState(() => getGridColumn(3, 2, 2));
+
+  useEffect(() => {
+    const handleResize = () => {
+      setPieCol(getGridColumn(2, 2, 2));
+      setBarCol(getGridColumn(3, 2, 2));
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return [
     <div
+      className="card"
       style={{
-        width: "100%",
-        height: "100%",
+        background: "var(--color-card-bg)",
+        borderRadius: 8,
+        padding: 16,
+        minHeight: 320,
+        flex: "1 1 300px",
+        minWidth: 0,
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        boxSizing: "border-box",
+        gridColumn: pieCol,
       }}
+      key="pie"
     >
+      <div
+        className="chart-title"
+        style={{
+          width: "100%",
+          fontWeight: 600,
+          color: "var(--color-table-row-text)",
+          fontSize: 16,
+          textAlign: "left",
+          marginBottom: 8,
+        }}
+      >
+        위젯 제목
+      </div>
       <div
         style={{
           flex: 1,
+          width: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <HighchartsReact highcharts={Highcharts} options={pieOptions()} />
+        <PieChartWithCustomLegend data={pieData} />
       </div>
-    </div>
-  );
-}
-
-export const ChartSection: React.FC = () => {
-  return (
+    </div>,
     <div
+      className="card"
       style={{
+        background: "var(--color-card-bg)",
+        borderRadius: 8,
+        padding: 16,
+        minHeight: 320,
+        flex: "1 1 300px",
+        minWidth: 0,
         display: "flex",
-        gap: 24,
-        width: "100%",
-        maxWidth: "100%",
-        flexWrap: "wrap",
-        overflow: "hidden",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
         boxSizing: "border-box",
+        gridColumn: barCol,
       }}
+      key="bar1"
     >
       <div
-        className="card"
+        className="chart-title"
         style={{
-          background: "var(--color-card-bg)",
-          borderRadius: 8,
-          padding: 16,
-          minHeight: 320,
-          flex: 1,
-          minWidth: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          boxSizing: "border-box",
-          maxWidth: "33.3333%",
+          width: "100%",
+          fontWeight: 600,
+          color: "var(--color-table-row-text)",
+          fontSize: 16,
+          textAlign: "left",
+          marginBottom: 8,
         }}
       >
-        <div
-          className="chart-title"
-          style={{
-            width: "100%",
-            fontWeight: 600,
-            color: "var(--color-table-row-text)",
-            fontSize: 16,
-            textAlign: "left",
-            marginBottom: 8,
-          }}
-        >
-          위젯 제목
-        </div>
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <PieChartWithCustomLegend />
-        </div>
+        위젯 제목
       </div>
       <div
-        className="card"
         style={{
-          background: "var(--color-card-bg)",
-          borderRadius: 8,
-          padding: 16,
-          minHeight: 320,
           flex: 1,
-          minWidth: 0,
+          width: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start",
-          boxSizing: "border-box",
-          maxWidth: "33.3333%",
+          justifyContent: "center",
         }}
       >
-        <div
-          className="chart-title"
-          style={{
-            width: "100%",
-            fontWeight: 600,
-            color: "var(--color-table-row-text)",
-            fontSize: 16,
-            textAlign: "left",
-            marginBottom: 8,
-          }}
-        >
-          위젯 제목
-        </div>
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <HighchartsReact highcharts={Highcharts} options={barOptions1()} />
-        </div>
+        <BarChart1 data={barData1} categories={barCategories1} />
+      </div>
+    </div>,
+    <div
+      className="card"
+      style={{
+        background: "var(--color-card-bg)",
+        borderRadius: 8,
+        padding: 16,
+        minHeight: 320,
+        flex: "1 1 300px",
+        minWidth: 0,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        boxSizing: "border-box",
+        gridColumn: barCol,
+      }}
+      key="bar2"
+    >
+      <div
+        className="chart-title"
+        style={{
+          width: "100%",
+          fontWeight: 600,
+          color: "var(--color-table-row-text)",
+          fontSize: 16,
+          textAlign: "left",
+          marginBottom: 8,
+        }}
+      >
+        위젯 제목
       </div>
       <div
-        className="card"
         style={{
-          background: "var(--color-card-bg)",
-          borderRadius: 8,
-          padding: 16,
-          minHeight: 320,
           flex: 1,
-          minWidth: 0,
+          width: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start",
-          boxSizing: "border-box",
-          maxWidth: "33.3333%",
+          justifyContent: "center",
         }}
       >
-        <div
-          className="chart-title"
-          style={{
-            width: "100%",
-            fontWeight: 600,
-            color: "var(--color-table-row-text)",
-            fontSize: 16,
-            textAlign: "left",
-            marginBottom: 8,
-          }}
-        >
-          위젯 제목
-        </div>
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <HighchartsReact highcharts={Highcharts} options={barOptions2()} />
-        </div>
+        <BarChart2 data={barData2} categories={barCategories2} />
       </div>
-    </div>
-  );
+    </div>,
+  ];
 };

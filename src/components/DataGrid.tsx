@@ -27,7 +27,6 @@ export const DataGrid: React.FC = () => {
   const startIdx = (currentPage - 1) * PAGE_SIZE;
   const pageRows = sampleRows.slice(startIdx, startIdx + PAGE_SIZE);
 
-  // For pagination display: show up to 5 page numbers, centered on current page
   let pageNumbers: number[] = [];
   if (totalPages <= 5) {
     pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -60,7 +59,6 @@ export const DataGrid: React.FC = () => {
         background: "var(--color-card-bg)",
         borderRadius: 8,
         padding: 16,
-        marginTop: 32,
       }}
     >
       <div
@@ -73,45 +71,48 @@ export const DataGrid: React.FC = () => {
       >
         최근 탐지 내역
       </div>
-      <table
-        className="table custom-table"
-        style={{
-          color: "var(--color-table-row-text)",
-          background: "var(--color-card-bg)",
-          width: "100%",
-        }}
-      >
-        <thead className="custom-table-header">
-          <tr>
-            <th className="table-cell-fit">#</th>
-            <th>탐지일시</th>
-            <th>출발지 IP</th>
-            <th>출발지 Port</th>
-            <th>프로토콜</th>
-            <th>SSL</th>
-            <th>조치</th>
-            <th>목적지 IP</th>
-            <th>목적지 Port</th>
-            <th>코드</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pageRows.map((row) => (
-            <tr key={row.id} className="custom-table-row">
-              <td className="table-cell-fit">{row.id}</td>
-              <td>{row.date}</td>
-              <td>{row.ip}</td>
-              <td>{row.port}</td>
-              <td>{row.protocol}</td>
-              <td>{row.ssl}</td>
-              <td>{row.action}</td>
-              <td>{row.src}</td>
-              <td>{row.dst}</td>
-              <td>{row.code}</td>
+      <div style={{ width: "100%", overflowX: "auto" }}>
+        <table
+          className="table custom-table"
+          style={{
+            color: "var(--color-table-row-text)",
+            background: "var(--color-card-bg)",
+            width: "100%",
+            minWidth: 800,
+          }}
+        >
+          <thead className="custom-table-header">
+            <tr>
+              <th className="table-cell-fit">#</th>
+              <th>탐지일시</th>
+              <th>출발지 IP</th>
+              <th>출발지 Port</th>
+              <th>프로토콜</th>
+              <th>SSL</th>
+              <th>조치</th>
+              <th>목적지 IP</th>
+              <th>목적지 Port</th>
+              <th>코드</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {pageRows.map((row) => (
+              <tr key={row.id} className="custom-table-row">
+                <td className="table-cell-fit">{row.id}</td>
+                <td>{row.date}</td>
+                <td>{row.ip}</td>
+                <td>{row.port}</td>
+                <td>{row.protocol}</td>
+                <td>{row.ssl}</td>
+                <td>{row.action}</td>
+                <td>{row.src}</td>
+                <td>{row.dst}</td>
+                <td>{row.code}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div
         style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}
       >
