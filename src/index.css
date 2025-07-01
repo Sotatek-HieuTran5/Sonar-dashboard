@@ -18,6 +18,7 @@
   --color-table-row-alt-bg: #23262f;
   --color-table-row-hover-bg: #23262f;
   --color-chart-legend-inactive: #888;
+  --color-neutral-200: rgba(0, 0, 0, 0.3);
   /* Add more variables as needed */
 }
 [data-theme="dark"] {
@@ -38,6 +39,7 @@
   --color-table-row-alt-bg: #23262f;
   --color-table-row-hover-bg: #23262f;
   --color-chart-legend-inactive: #888;
+  --color-neutral-200: rgba(0, 0, 0, 0.3);
   /* Add more variables as needed */
 }
 .bg-base-100 {
@@ -97,7 +99,7 @@ body {
   }
 }
 .btn.btn-primary {
-  background-color: var(--color-inlinecode-content);
+  background-color: var(--color-neutral-200);
   &:hover {
     @media (hover: hover) {
       border-color: var(--color-neutral-content);

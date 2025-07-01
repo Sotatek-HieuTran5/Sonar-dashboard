@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import "./DataGrid.css";
 
 const PAGE_SIZE = 10;
 const TOTAL_ROWS = 47;
@@ -18,6 +19,8 @@ const sampleRows = Array.from({ length: TOTAL_ROWS }).map((_, i) => ({
 export const DataGrid: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(TOTAL_ROWS / PAGE_SIZE);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -52,35 +55,43 @@ export const DataGrid: React.FC = () => {
     }
   }
 
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+
   return (
-    <div
-      className="card"
-      style={{
-        background: "var(--color-card-bg)",
-        borderRadius: 8,
-        padding: 16,
-      }}
-    >
-      <div
-        style={{
-          color: "var(--color-table-row-text)",
-          fontWeight: 700,
-          fontSize: 18,
-          marginBottom: 8,
-        }}
-      >
-        최근 탐지 내역
-      </div>
-      <div style={{ width: "100%", overflowX: "auto" }}>
-        <table
-          className="table custom-table"
-          style={{
-            color: "var(--color-table-row-text)",
-            background: "var(--color-card-bg)",
-            width: "100%",
-            minWidth: 800,
-          }}
+    <div className="card data-grid-card">
+      <div className="data-grid-menu-container" ref={menuRef}>
+        <button
+          className="btn btn-primary data-grid-menu-button"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="More options"
         >
+          <span className="data-grid-menu-icon">⋮</span>
+        </button>
+        {menuOpen && (
+          <div className="data-grid-menu-dropdown">
+            <div className="data-grid-menu-item">Option 1</div>
+            <div className="data-grid-menu-item">Option 2</div>
+            <div className="data-grid-menu-item">Option 3</div>
+          </div>
+        )}
+      </div>
+      <div className="data-grid-title">최근 탐지 내역</div>
+      <div className="data-grid-table-container">
+        <table className="table custom-table data-grid-table">
           <thead className="custom-table-header">
             <tr>
               <th className="table-cell-fit">#</th>
@@ -113,9 +124,7 @@ export const DataGrid: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}
-      >
+      <div className="data-grid-pagination-container">
         <div className="pagination custom-pagination">
           <button
             className="pagination-btn"

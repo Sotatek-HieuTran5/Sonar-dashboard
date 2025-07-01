@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import type {
@@ -6,6 +6,7 @@ import type {
   BarDatum,
   ChartSectionProps,
 } from "../interfaces/chart";
+import "./ChartSection.css";
 
 function getVar(name: string, fallback: string) {
   if (typeof window !== "undefined") {
@@ -77,22 +78,8 @@ const PieChartWithCustomLegend: React.FC<{ data: PieDatum[] }> = ({ data }) => {
     ],
   };
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+    <div className="pie-chart-container">
+      <div className="pie-chart-content">
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
     </div>
@@ -263,6 +250,44 @@ function getGridColumn(
   return `span ${spanLarge}`;
 }
 
+function MoreMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
+  return (
+    <div className="chart-menu-container" ref={ref}>
+      <button
+        className="btn btn-primary chart-menu-button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="More options"
+      >
+        <span className="chart-menu-icon">⋮</span>
+      </button>
+      {open && (
+        <div className="chart-menu-dropdown">
+          <div className="chart-menu-item">Option 1</div>
+          <div className="chart-menu-item">Option 2</div>
+          <div className="chart-menu-item">Option 3</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export const ChartCards: React.FC<ChartSectionProps> = ({
   pieData,
   barData1,
@@ -284,131 +309,35 @@ export const ChartCards: React.FC<ChartSectionProps> = ({
 
   return [
     <div
-      className="card"
-      style={{
-        background: "var(--color-card-bg)",
-        borderRadius: 8,
-        padding: 16,
-        minHeight: 320,
-        flex: "1 1 300px",
-        minWidth: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        boxSizing: "border-box",
-        gridColumn: pieCol,
-      }}
+      className="card chart-card chart-card-pie"
+      style={{ gridColumn: pieCol }}
       key="pie"
     >
-      <div
-        className="chart-title"
-        style={{
-          width: "100%",
-          fontWeight: 600,
-          color: "var(--color-table-row-text)",
-          fontSize: 16,
-          textAlign: "left",
-          marginBottom: 8,
-        }}
-      >
-        위젯 제목
-      </div>
-      <div
-        style={{
-          flex: 1,
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <MoreMenu />
+      <div className="chart-title">위젯 제목</div>
+      <div className="chart-container">
         <PieChartWithCustomLegend data={pieData} />
       </div>
     </div>,
     <div
-      className="card"
-      style={{
-        background: "var(--color-card-bg)",
-        borderRadius: 8,
-        padding: 16,
-        minHeight: 320,
-        flex: "1 1 300px",
-        minWidth: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        boxSizing: "border-box",
-        gridColumn: barCol,
-      }}
+      className="card chart-card chart-card-bar"
+      style={{ gridColumn: barCol }}
       key="bar1"
     >
-      <div
-        className="chart-title"
-        style={{
-          width: "100%",
-          fontWeight: 600,
-          color: "var(--color-table-row-text)",
-          fontSize: 16,
-          textAlign: "left",
-          marginBottom: 8,
-        }}
-      >
-        위젯 제목
-      </div>
-      <div
-        style={{
-          flex: 1,
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <MoreMenu />
+      <div className="chart-title">위젯 제목</div>
+      <div className="chart-container">
         <BarChart1 data={barData1} categories={barCategories1} />
       </div>
     </div>,
     <div
-      className="card"
-      style={{
-        background: "var(--color-card-bg)",
-        borderRadius: 8,
-        padding: 16,
-        minHeight: 320,
-        flex: "1 1 300px",
-        minWidth: 0,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        boxSizing: "border-box",
-        gridColumn: barCol,
-      }}
+      className="card chart-card chart-card-bar"
+      style={{ gridColumn: barCol }}
       key="bar2"
     >
-      <div
-        className="chart-title"
-        style={{
-          width: "100%",
-          fontWeight: 600,
-          color: "var(--color-table-row-text)",
-          fontSize: 16,
-          textAlign: "left",
-          marginBottom: 8,
-        }}
-      >
-        위젯 제목
-      </div>
-      <div
-        style={{
-          flex: 1,
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <MoreMenu />
+      <div className="chart-title">위젯 제목</div>
+      <div className="chart-container">
         <BarChart2 data={barData2} categories={barCategories2} />
       </div>
     </div>,
