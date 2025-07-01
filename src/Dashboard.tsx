@@ -1,5 +1,4 @@
 import React from "react";
-import { WarningBox } from "./components/WarningBox";
 import { StatBox } from "./components/StatBox";
 import { ChartCards } from "./components/ChartSection";
 import { DataGrid } from "./components/DataGrid";
@@ -15,7 +14,7 @@ import {
 export const Dashboard: React.FC = () => (
   <div className="dashboard-root">
     <div className="dashboard-container">
-      <WarningBox />
+      {/* <WarningBox /> */}
       <div className="dashboard-unified-grid">
         {statData.map((stat, idx) => (
           <StatBox key={idx} {...stat} />

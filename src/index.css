@@ -12,7 +12,7 @@
   --color-table-border: #23262f;
   --color-warning-bg: #d46a00;
   --color-warning-text: #111;
-  --color-dashboard-bg: #181a20;
+  --color-dashboard-bg: black;
   --color-table-header-text: #fff;
   --color-table-row-text: #fff;
   --color-table-row-alt-bg: #23262f;
@@ -29,7 +29,7 @@
   --color-primary-100: #ff692a;
   --color-primary-200: #ff8c53;
   --color-card-bg: #23262f;
-  --color-table-header-bg: #181a20;
+  --color-table-header-bg: black;
   --color-table-border: #23262f;
   --color-warning-bg: #d46a00;
   --color-warning-text: #111;
