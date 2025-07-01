@@ -15,6 +15,33 @@
   position: relative;
 }
 
+.stat-box-label-container {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  z-index: 2;
+}
+
+.stat-box-tooltip {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #161a1d;
+  border: 1px solid #2c333a;
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px var(--color-base-content);
+  z-index: 10;
+  pointer-events: none;
+}
+
 .stat-box-menu-container {
   position: absolute;
   top: 12px;

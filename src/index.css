@@ -19,6 +19,8 @@
   --color-table-row-hover-bg: #23262f;
   --color-chart-legend-inactive: #888;
   --color-neutral-200: rgba(0, 0, 0, 0.3);
+  --color-neutral-300: #2c333a;
+  --color-neutral-600: #161a1d;
   /* Add more variables as needed */
 }
 [data-theme="dark"] {
@@ -40,6 +42,8 @@
   --color-table-row-hover-bg: #23262f;
   --color-chart-legend-inactive: #888;
   --color-neutral-200: rgba(0, 0, 0, 0.3);
+  --color-neutral-300: #2c333a;
+  --color-neutral-600: #161a1d;
   /* Add more variables as needed */
 }
 .bg-base-100 {
@@ -99,7 +103,8 @@ body {
   }
 }
 .btn.btn-primary {
-  background-color: var(--color-neutral-200);
+  background-color: var(--color-neutral-600);
+  border: 1px solid var(--color-neutral-300);
   &:hover {
     @media (hover: hover) {
       border-color: var(--color-neutral-content);
