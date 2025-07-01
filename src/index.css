@@ -7,7 +7,7 @@
   --color-base-content: #22272b;
   --color-primary-100: #ff692a;
   --color-primary-200: #ff8c53;
-  --color-card-bg: #23262f;
+  --color-card-bg: #080808;
   --color-table-header-bg: #181a20;
   --color-table-border: #23262f;
   --color-warning-bg: #d46a00;
@@ -2144,7 +2144,6 @@ pre[class*="language-"] {
   width: 100%;
 }
 .dashboard-container {
-  max-width: 1600px;
   margin: 0 auto;
   padding: 32px;
   box-sizing: border-box;
@@ -2227,6 +2226,11 @@ pre[class*="language-"] {
   flex-wrap: wrap;
   gap: 8px;
 }
+
+.card {
+  border: 1px solid #1e1e1e;
+}
+
 @media (max-width: 1200px) {
   .chart-grid > div > .card {
     max-width: 48%;
