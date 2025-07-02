@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./DataGrid.css";
+import { IconButton } from "./IconButton";
+import moreOptionIcon from "../assets/icons/more-option.svg";
 
 const PAGE_SIZE = 10;
 const TOTAL_ROWS = 47;
@@ -74,18 +76,17 @@ export const DataGrid: React.FC = () => {
   return (
     <div className="card data-grid-card">
       <div className="data-grid-menu-container" ref={menuRef}>
-        <button
-          className="btn btn-primary data-grid-menu-button"
+        <IconButton
+          className="data-grid-menu-button"
+          icon={<img src={moreOptionIcon} alt="more-option" />}
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="More options"
-        >
-          <span className="data-grid-menu-icon">⋮</span>
-        </button>
+        />
         {menuOpen && (
           <div className="data-grid-menu-dropdown">
-            <div className="data-grid-menu-item">Option 1</div>
-            <div className="data-grid-menu-item">Option 2</div>
-            <div className="data-grid-menu-item">Option 3</div>
+            <div className="data-grid-menu-item">옵션 1</div>
+            <div className="data-grid-menu-item">옵션 2</div>
+            <div className="data-grid-menu-item">옵션 3</div>
           </div>
         )}
       </div>

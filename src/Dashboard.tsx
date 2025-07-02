@@ -10,6 +10,10 @@ import {
   barCategories2,
   statData,
 } from "./mockChartData";
+import { IconButton } from "./components/IconButton";
+import settingIcon from "./assets/icons/setting.svg";
+import filterIcon from "./assets/icons/filter.svg";
+import arrowDownIcon from "./assets/icons/arrow-down.svg";
 
 export const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -29,7 +33,13 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="dashboard-root">
       <div>
-        <div style={{ display: "flex", borderBottom: "1px solid #333" }}>
+        <div
+          style={{
+            display: "flex",
+            borderBottom: "1px solid #333",
+            alignItems: "center",
+          }}
+        >
           {tabNames.map((name, idx) => (
             <button
               key={name}
@@ -41,20 +51,35 @@ export const Dashboard: React.FC = () => {
                   activeTab === idx
                     ? "var(--color-base-100)"
                     : "var(--color-base-content)",
-                padding: "12px 24px",
+                padding: "16px",
                 cursor: "pointer",
                 borderBottom:
                   activeTab === idx
                     ? "3px solid var(--color-primary-100)"
                     : "3px solid transparent",
                 fontWeight: activeTab === idx ? "bold" : "normal",
-                fontSize: 16,
+                fontSize: 14,
                 outline: "none",
               }}
             >
               {name}
             </button>
           ))}
+          <div style={{ flex: 1 }} />
+          <div className="dashboard-setting-filter-container">
+            <IconButton
+              icon={<img src={settingIcon} alt="setting" />}
+              rightIcon={<img src={arrowDownIcon} alt="arrow-down" />}
+            >
+              설정
+            </IconButton>
+            <IconButton
+              icon={<img src={filterIcon} alt="filter" />}
+              rightIcon={<img src={arrowDownIcon} alt="arrow-down" />}
+            >
+              필터
+            </IconButton>
+          </div>
         </div>
       </div>
       {activeTab === 0 ? (

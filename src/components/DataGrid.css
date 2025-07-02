@@ -13,16 +13,9 @@
 }
 
 .data-grid-menu-button {
-  border: none;
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
   color: #fff;
-}
-
-.data-grid-menu-icon {
-  font-size: 24px;
-  font-weight: 700;
+  width: 24px;
+  height: 24px;
 }
 
 .data-grid-menu-dropdown {
@@ -45,9 +38,9 @@
 
 .data-grid-title {
   color: var(--color-table-row-text);
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 16px;
 }
 
 .data-grid-table-container {

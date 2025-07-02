@@ -46,16 +46,9 @@
 }
 
 .chart-menu-button {
-  border: none;
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
   color: #fff;
-}
-
-.chart-menu-icon {
-  font-size: 24px;
-  font-weight: 700;
+  width: 24px;
+  height: 24px;
 }
 
 .chart-menu-dropdown {
@@ -78,9 +71,9 @@
 
 .chart-title {
   width: 100%;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-table-row-text);
-  font-size: 16px;
+  font-size: 14px;
   text-align: left;
   margin-bottom: 8px;
 }
@@ -88,9 +81,6 @@
 .chart-container {
   flex: 1;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .pie-chart-container {

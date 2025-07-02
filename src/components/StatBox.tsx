@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./StatBox.css";
+import { IconButton } from "./IconButton";
+import moreOptionIcon from "../assets/icons/more-option.svg";
 
 interface StatBoxProps {
   title: string;
@@ -45,18 +47,17 @@ export const StatBox: React.FC<StatBoxProps> = ({ title, value, label }) => {
         ref={menuRef}
         style={{ position: "absolute", top: 8, right: 12 }}
       >
-        <button
-          className="btn btn-primary stat-box-menu-button"
+        <IconButton
+          className="stat-box-menu-button"
+          icon={<img src={moreOptionIcon} alt="more-option" />}
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="More options"
-        >
-          <span className="stat-box-menu-icon">⋮</span>
-        </button>
+        />
         {menuOpen && (
           <div className="stat-box-menu-dropdown">
-            <div className="stat-box-menu-item">Option 1</div>
-            <div className="stat-box-menu-item">Option 2</div>
-            <div className="stat-box-menu-item">Option 3</div>
+            <div className="stat-box-menu-item">옵션 1</div>
+            <div className="stat-box-menu-item">옵션 2</div>
+            <div className="stat-box-menu-item">옵션 3</div>
           </div>
         )}
       </div>

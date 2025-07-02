@@ -4,7 +4,7 @@
   --color-base-100: #fff;
   --color-base-200: #f5f6fa;
   --color-base-300: #e5e7eb;
-  --color-base-content: #22272b;
+  --color-base-content: #999999;
   --color-primary-100: #ff692a;
   --color-primary-200: #ff8c53;
   --color-card-bg: #080808;
@@ -61,13 +61,17 @@
 
 body {
   margin: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans",
+    sans-serif;
 }
 
 .btn {
   cursor: pointer;
-  border-radius: var(--radius-lg, 0.5rem);
+  border-radius: var(--radius-lg, 0.25rem);
   border-style: var(--tw-border-style);
   border-width: 1px;
+  width: 24px;
+  height: 24px;
   border-color: transparent;
   background-color: transparent;
   padding-inline: calc(var(--spacing, 0.25rem) * 2);
@@ -1308,7 +1312,8 @@ code[class*="language-"],
 pre[class*="language-"] {
   color: #ccc;
   background: none;
-  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans",
+    sans-serif;
   font-size: 1em;
   text-align: left;
   white-space: pre;
@@ -1551,17 +1556,8 @@ pre[class*="language-"] {
     background-color: var(--color-neutral-200);
     padding-inline: calc(var(--spacing, 0.25rem) * 1.5);
     padding-block: calc(var(--spacing, 0.25rem) * 0.5);
-    font-family: var(
-      --font-mono,
-      ui-monospace,
-      SFMono-Regular,
-      Menlo,
-      Monaco,
-      Consolas,
-      "Liberation Mono",
-      "Courier New",
-      monospace
-    );
+    font-family: "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans",
+      sans-serif;
     font-size: var(--text-xs, 0.75rem);
     line-height: var(--tw-leading, var(--text-xs--line-height));
     color: var(--color-primary);
@@ -1744,17 +1740,8 @@ pre[class*="language-"] {
     color: var(--color-base-content);
   }
   .color-sample .color-value {
-    font-family: var(
-      --font-mono,
-      ui-monospace,
-      SFMono-Regular,
-      Menlo,
-      Monaco,
-      Consolas,
-      "Liberation Mono",
-      "Courier New",
-      monospace
-    );
+    font-family: "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans",
+      sans-serif;
     font-size: var(--text-xs, 0.75rem);
     line-height: var(--tw-leading, var(--text-xs--line-height));
     color: var(--color-base-content-200);
@@ -2069,19 +2056,20 @@ pre[class*="language-"] {
 .custom-table-header th {
   background: var(--color-table-header-bg);
   color: #fff;
-  font-weight: 700;
+  font-weight: 600;
   border-bottom: 3px solid var(--color-primary-100);
   padding: 14px 8px;
   text-align: left;
-  height: 48px;
+  height: 20px;
+  font-size: 14px;
 }
 .custom-table-row td {
   background: var(--color-card-bg);
   color: #fff;
-  border-bottom: 1px solid #23262f;
+  border-bottom: 1px solid var(--color-neutral-300);
   padding: 12px 8px;
   vertical-align: middle;
-  font-size: 15px;
+  font-size: 14px;
 }
 .custom-table-row:last-child td {
   border-bottom: none;
@@ -2096,16 +2084,16 @@ pre[class*="language-"] {
   gap: 4px;
 }
 .pagination-btn {
-  border-radius: 10px;
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   background: #181a20;
+  border: 1px solid var(--color-neutral-300);
   color: #fff;
-  border: none;
   margin: 0 1px;
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2153,6 +2141,13 @@ pre[class*="language-"] {
   padding: 16px;
   box-sizing: border-box;
 }
+
+.dashboard-setting-filter-container {
+  display: flex;
+  gap: 8px;
+  margin-right: 16px;
+}
+
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);

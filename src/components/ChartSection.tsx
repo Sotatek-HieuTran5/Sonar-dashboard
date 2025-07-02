@@ -7,6 +7,8 @@ import type {
   ChartSectionProps,
 } from "../interfaces/chart";
 import "./ChartSection.css";
+import { IconButton } from "./IconButton";
+import moreOptionIcon from "../assets/icons/more-option.svg";
 
 function getVar(name: string, fallback: string) {
   if (typeof window !== "undefined") {
@@ -28,7 +30,8 @@ const commonChartStyle = () => {
   const c = getChartColors();
   return {
     color: c.text,
-    fontFamily: "inherit",
+    fontFamily:
+      "'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif",
   };
 };
 
@@ -47,12 +50,14 @@ const PieChartWithCustomLegend: React.FC<{ data: PieDatum[] }> = ({ data }) => {
       align: "center",
       verticalAlign: "bottom",
       layout: "horizontal",
-      itemStyle: { color: c.text, fontSize: 15 },
+      itemStyle: { color: c.text, fontSize: 12 },
       itemHoverStyle: { color: c.text },
       itemHiddenStyle: { color: c.legendInactive },
     },
     plotOptions: {
       pie: {
+        borderWidth: 0,
+        borderRadius: 0,
         dataLabels: {
           enabled: false,
           style: { color: c.text, textOutline: "none" },
@@ -93,7 +98,7 @@ const BarChart1: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
       align: "center",
       verticalAlign: "bottom",
       layout: "horizontal",
-      itemStyle: { color: c.text, fontSize: 15 },
+      itemStyle: { color: c.text, fontSize: 12 },
       itemHoverStyle: { color: c.text },
       itemHiddenStyle: { color: c.legendInactive },
       itemWidth: 120,
@@ -101,7 +106,7 @@ const BarChart1: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
     xAxis: {
       categories,
       title: { text: undefined },
-      labels: { style: { color: c.text, fontSize: 15 } },
+      labels: { style: { color: c.text, fontSize: 12 } },
       gridLineWidth: 0,
       lineColor: "#444",
       tickColor: "#444",
@@ -109,7 +114,7 @@ const BarChart1: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
     yAxis: {
       min: 0,
       title: { text: undefined },
-      labels: { style: { color: c.text, fontSize: 15 } },
+      labels: { style: { color: c.text, fontSize: 12 } },
       gridLineWidth: 1,
       gridLineColor: "#444",
     },
@@ -160,7 +165,7 @@ const BarChart2: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
       align: "center",
       verticalAlign: "bottom",
       layout: "horizontal",
-      itemStyle: { color: c.text, fontSize: 15 },
+      itemStyle: { color: c.text, fontSize: 12 },
       itemHoverStyle: { color: c.text },
       itemHiddenStyle: { color: c.legendInactive },
       itemWidth: 150,
@@ -168,7 +173,7 @@ const BarChart2: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
     xAxis: {
       categories,
       title: { text: undefined },
-      labels: { style: { color: c.text, fontSize: 15 } },
+      labels: { style: { color: c.text, fontSize: 12 } },
       gridLineWidth: 0,
       lineColor: "#444",
       tickColor: "#444",
@@ -176,7 +181,7 @@ const BarChart2: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
     yAxis: {
       min: 0,
       title: { text: undefined },
-      labels: { style: { color: c.text, fontSize: 15 } },
+      labels: { style: { color: c.text, fontSize: 12 } },
       gridLineWidth: 1,
       gridLineColor: "#444",
     },
@@ -242,18 +247,17 @@ function MoreMenu() {
   }, [open]);
   return (
     <div className="chart-menu-container" ref={ref}>
-      <button
-        className="btn btn-primary chart-menu-button"
+      <IconButton
+        className="chart-menu-button"
+        icon={<img src={moreOptionIcon} alt="more-option" />}
         onClick={() => setOpen((v) => !v)}
         aria-label="More options"
-      >
-        <span className="chart-menu-icon">⋮</span>
-      </button>
+      />
       {open && (
         <div className="chart-menu-dropdown">
-          <div className="chart-menu-item">Option 1</div>
-          <div className="chart-menu-item">Option 2</div>
-          <div className="chart-menu-item">Option 3</div>
+          <div className="chart-menu-item">옵션 1</div>
+          <div className="chart-menu-item">옵션 2</div>
+          <div className="chart-menu-item">옵션 3</div>
         </div>
       )}
     </div>
