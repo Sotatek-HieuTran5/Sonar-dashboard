@@ -117,6 +117,14 @@ const BarChart1: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
       labels: { style: { color: c.text, fontSize: 12 } },
       gridLineWidth: 1,
       gridLineColor: "#444",
+      plotLines: [
+        {
+          value: 0,
+          color: "#fff",
+          width: 1,
+          zIndex: 5,
+        },
+      ],
     },
     plotOptions: {
       bar: {
@@ -184,6 +192,14 @@ const BarChart2: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
       labels: { style: { color: c.text, fontSize: 12 } },
       gridLineWidth: 1,
       gridLineColor: "#444",
+      plotLines: [
+        {
+          value: 0,
+          color: "#fff",
+          width: 1,
+          zIndex: 5,
+        },
+      ],
     },
     plotOptions: {
       column: {
