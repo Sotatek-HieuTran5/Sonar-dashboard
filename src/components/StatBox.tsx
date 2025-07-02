@@ -66,7 +66,6 @@ export const StatBox: React.FC<StatBoxProps> = ({ title, value, label }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
           height: "100%",
           width: "100%",
         }}
@@ -77,7 +76,7 @@ export const StatBox: React.FC<StatBoxProps> = ({ title, value, label }) => {
             fontSize: 18,
             fontWeight: 700,
             color: "#fff",
-            marginBottom: 8,
+            marginBottom: 16,
             textAlign: "center",
           }}
         >
