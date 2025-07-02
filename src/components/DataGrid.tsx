@@ -2,6 +2,10 @@ import React, { useState, useRef } from "react";
 import "./DataGrid.css";
 import { IconButton } from "./IconButton";
 import moreOptionIcon from "../assets/icons/more-option.svg";
+import previousEndIcon from "../assets/icons/previous-end.svg";
+import previousIcon from "../assets/icons/previous.svg";
+import nextIcon from "../assets/icons/next.svg";
+import nextEndIcon from "../assets/icons/next-end.svg";
 
 const PAGE_SIZE = 10;
 const TOTAL_ROWS = 47;
@@ -132,14 +136,14 @@ export const DataGrid: React.FC = () => {
             onClick={() => handlePageChange(1)}
             disabled={currentPage === 1}
           >
-            &lt;&lt;
+            <img src={previousEndIcon} alt="previous" />
           </button>
           <button
             className="pagination-btn"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            &lt;
+            <img src={previousIcon} alt="previous" />
           </button>
           {pageNumbers.map((num) => (
             <button
@@ -157,14 +161,14 @@ export const DataGrid: React.FC = () => {
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            &gt;
+            <img src={nextIcon} alt="next" />
           </button>
           <button
             className="pagination-btn"
             onClick={() => handlePageChange(totalPages)}
             disabled={currentPage === totalPages}
           >
-            &gt;&gt;
+            <img src={nextEndIcon} alt="next" />
           </button>
           <button className="pagination-btn pagination-count" disabled>
             {TOTAL_ROWS} 건
