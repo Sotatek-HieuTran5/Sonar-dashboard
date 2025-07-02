@@ -2150,7 +2150,7 @@ pre[class*="language-"] {
 }
 .dashboard-container {
   margin: 0 auto;
-  padding: 32px;
+  padding: 16px;
   box-sizing: border-box;
 }
 .stat-grid {

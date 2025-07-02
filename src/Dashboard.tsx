@@ -23,13 +23,12 @@ export const Dashboard: React.FC = () => {
   ];
 
   function getLabel(idx: number) {
-    // Cycle through the labels for demo; you can randomize if you want
     return statBoxLabels[idx % statBoxLabels.length];
   }
 
   return (
     <div className="dashboard-root">
-      <div style={{ marginBottom: 16 }}>
+      <div>
         <div style={{ display: "flex", borderBottom: "1px solid #333" }}>
           {tabNames.map((name, idx) => (
             <button
