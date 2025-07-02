@@ -96,6 +96,7 @@ const BarChart1: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
       itemStyle: { color: c.text, fontSize: 15 },
       itemHoverStyle: { color: c.text },
       itemHiddenStyle: { color: c.legendInactive },
+      itemWidth: 120,
     },
     xAxis: {
       categories,
@@ -162,6 +163,7 @@ const BarChart2: React.FC<{ data: BarDatum[]; categories: string[] }> = ({
       itemStyle: { color: c.text, fontSize: 15 },
       itemHoverStyle: { color: c.text },
       itemHiddenStyle: { color: c.legendInactive },
+      itemWidth: 150,
     },
     xAxis: {
       categories,
